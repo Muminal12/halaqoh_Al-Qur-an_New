@@ -2,22 +2,12 @@
   "name": "halaqoh-al-quran-online",
   "version": "1.0.0",
   "private": true,
-  "description": "Aplikasi Halaqoh Al Qur'an dengan login, database SQLite, role admin/ustadz, dan API.",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
-  },
-  "engines": {
-    "node": ">=20"
+    "start": "node server.js"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^11.8.1",
+    "better-sqlite3": "^11.10.0",
     "cookie-parser": "^1.4.7",
-    "express": "^4.21.2",
-    "helmet": "^8.0.0",
-    "jsonwebtoken": "^9.0.2",
-    "dotenv": "^16.4.7"
+    "express": "^5.1.0"
   }
 }
