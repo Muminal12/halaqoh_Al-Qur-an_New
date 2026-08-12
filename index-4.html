@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0f5d48">
+<title>Halaqoh Al-Qur'an</title>
+<style>
+:root{--g:#0f5d48;--gd:#083d31;--bg:#f4f6f2;--card:#fff;--text:#17352d;--muted:#718078;--line:#e0e6e1;--danger:#b64039;--gold:#b88a2b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+.hidden{display:none!important}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#e9f1ec,#f8f5ed)}
+.authbox{width:min(430px,100%);background:#fff;border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:0 20px 60px #12352a18}
+.brand{font-size:13px;font-weight:900;letter-spacing:.12em;color:var(--gold)}h1{font-size:31px;margin:8px 0}h2{margin:0 0 12px}p{line-height:1.5}.muted{color:var(--muted)}
+label{display:block;font-weight:750;margin:15px 0 7px}.input{width:100%;height:48px;border:1px solid var(--line);border-radius:12px;padding:0 13px;background:#fff;outline:none}.input:focus{border-color:#72a897;box-shadow:0 0 0 3px #0f5d4812}
+.btn{border:0;border-radius:12px;min-height:45px;padding:0 16px;font-weight:800}.primary{background:var(--g);color:#fff}.secondary{background:#e9f1ed;color:var(--g)}.danger{background:#fff0ee;color:var(--danger);border:1px solid #edc8c4}.full{width:100%;margin-top:18px}.err{color:var(--danger);font-size:13px;margin-top:9px;min-height:18px}
+.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:255px;background:#fff;border-right:1px solid var(--line);padding:25px 17px;z-index:5}.sidebrand{font-weight:900;letter-spacing:.1em;color:var(--gold);padding:0 13px 25px}.sideuser{background:#edf4f0;border-radius:15px;padding:13px;margin-bottom:17px}.sideuser b{display:block}.sideuser small{color:var(--muted)}
+.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;text-align:left;padding:13px;border-radius:12px;color:#637069;font-weight:700}.nav button.active,.nav button:hover{background:#e5f0eb;color:var(--g)}
+.main{margin-left:255px;padding:28px;max-width:1450px}.topline{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px}.topline h1{margin:0;font-size:32px}.content{max-width:1180px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric,.panel{background:var(--card);border:1px solid var(--line);border-radius:20px}.metric{padding:19px}.metric small{color:var(--muted)}.metric .num{font-size:34px;font-weight:900;margin-top:6px}.panel{padding:20px;margin-top:15px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.actions{display:flex;gap:8px;flex-wrap:wrap}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:13px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}.table th{font-size:13px;color:var(--muted)}.badge{display:inline-block;padding:5px 9px;border-radius:99px;background:#e4efe9;color:var(--g);font-size:12px;font-weight:800}.badge.red{background:#fff0ee;color:var(--danger)}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.empty{text-align:center;padding:30px;color:var(--muted)}
+.modal{position:fixed;inset:0;background:#0007;display:none;place-items:center;padding:18px;z-index:30}.modal.show{display:grid}.modalbox{width:min(520px,100%);background:#fff;border-radius:22px;padding:23px}.close{float:right;border:0;background:#eef1ed;border-radius:50%;width:34px;height:34px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--gd);color:#fff;padding:12px 17px;border-radius:12px;z-index:50;box-shadow:0 8px 30px #0002}
+.mobilebar{display:none}
+@media(max-width:800px){.sidebar{display:none}.main{margin:0;padding:18px 14px 88px}.cards{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}.mobilebar{display:grid;position:fixed;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid var(--line);grid-template-columns:repeat(4,1fr);z-index:10}.mobilebar button{border:0;background:#fff;color:#68756e;font-size:12px}.mobilebar button.active{color:var(--g);font-weight:800}.topline h1{font-size:26px}}
+@media(max-width:450px){.cards{gap:9px}.metric{padding:14px}.metric .num{font-size:28px}.authbox{padding:24px 20px}}
+</style>
+</head>
+<body>
+
+<section id="auth" class="auth">
+  <div class="authbox">
+    <div class="brand">HALAQOH AL-QUR'AN</div>
+    <h1>Selamat datang</h1>
+    <p class="muted">Masuk untuk mengelola halaqoh, santri, setoran, dan murajaah.</p>
+    <label>Username</label><input id="username" class="input" autocomplete="username">
+    <label>Password</label><input id="password" class="input" type="password" autocomplete="current-password">
+    <div id="loginErr" class="err"></div>
+    <button id="loginBtn" class="btn primary full">Masuk</button>
+    <p class="muted" style="font-size:12px;margin-top:14px">Pendaftaran akun dinonaktifkan. Akun pengguna dikelola oleh Administrator.</p>
+  </div>
+</section>
+
+<section id="app" class="app hidden">
+  <aside class="sidebar">
+    <div class="sidebrand">HALAQOH AL-QUR'AN</div>
+    <div class="sideuser"><b id="sideName">-</b><small id="sideRole">-</small></div>
+    <nav class="nav">
+      <button data-page="dashboard">⌂ &nbsp; Dashboard</button>
+      <button data-page="students">♟ &nbsp; Data Santri</button>
+      <button data-page="records">▣ &nbsp; Setoran & Murajaah</button>
+      <button data-page="recap">▤ &nbsp; Rekap</button>
+      <button data-page="admin" id="adminNav" class="hidden">👑 &nbsp; Admin</button>
+      <button id="logoutBtn">↪ &nbsp; Keluar</button>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topline">
+      <h1 id="pageTitle">Dashboard</h1>
+      <button id="refreshBtn" class="btn secondary">Refresh</button>
+    </div>
+    <div id="pages" class="content"></div>
+  </main>
+
+  <nav class="mobilebar">
+    <button data-page="dashboard">⌂<br>Home</button>
+    <button data-page="students">♟<br>Santri</button>
+    <button data-page="records">▣<br>Setoran</button>
+    <button data-page="recap">▤<br>Rekap</button>
+  </nav>
+</section>
+
+<div id="modal" class="modal"><div class="modalbox"><button id="closeModal" class="close">×</button><div id="modalBody"></div></div></div>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+'use strict';
+
+const $=id=>document.getElementById(id);
+let me=null,page='dashboard',cache={students:[],records:[],stats:{}};
+
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');clearTimeout(window.__t);window.__t=setTimeout(()=>$('toast').classList.add('hidden'),2400)}
+function list(data,names=[]){
+  if(Array.isArray(data))return data;
+  for(const n of names)if(data&&Array.isArray(data[n]))return data[n];
+  if(data&&Array.isArray(data.data))return data.data;
+  if(data&&Array.isArray(data.rows))return data.rows;
+  return [];
+}
+async function api(url,opts={}){
+  const res=await fetch(url,{credentials:'include',...opts,headers:{'Content-Type':'application/json',...(opts.headers||{})}});
+  const text=await res.text();let data=null;
+  try{data=text?JSON.parse(text):null}catch{data=text}
+  if(res.status===401){logoutLocal();throw new Error(data?.error||'Sesi login sudah habis.')}
+  if(!res.ok)throw new Error(data?.error||data?.message||text||`HTTP ${res.status}`);
+  return data;
+}
+function logoutLocal(){me=null;$('app').classList.add('hidden');$('auth').classList.remove('hidden')}
+function isAdmin(){return String(me?.role||'').toLowerCase()==='admin'}
+
+async function loadDashboard(){
+  const d=await api('/api/dashboard');
+  cache.students=list(d,['students','santri']);
+  cache.records=list(d,['records','setoran']);
+  cache.stats=d?.stats||{};
+  return d;
+}
+async function loadStudents(){
+  try{const d=await api('/api/students');cache.students=list(d,['students','santri'])}catch{await loadDashboard()}
+}
+async function loadRecords(){
+  try{const d=await api('/api/records');cache.records=list(d,['records','setoran'])}catch{await loadDashboard()}
+}
+
+function setNav(){
+  document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+}
+function go(p){page=p;setNav();render()}
+async function render(){
+  setNav();
+  const titles={dashboard:'Dashboard',students:'Data Santri',records:'Setoran & Murajaah',recap:'Rekap',admin:'Administrasi'};
+  $('pageTitle').textContent=titles[page]||'Dashboard';
+  try{
+    if(page==='dashboard')return await dashboardPage();
+    if(page==='students')return await studentsPage();
+    if(page==='records')return await recordsPage();
+    if(page==='recap')return await recapPage();
+    if(page==='admin'&&isAdmin())return await adminPage();
+    page='dashboard';return await dashboardPage();
+  }catch(e){
+    $('pages').innerHTML=`<div class="panel"><h2>Gagal memuat</h2><p class="muted">${esc(e.message)}</p><button class="btn primary" onclick="render()">Coba lagi</button></div>`;
+  }
+}
+
+async function dashboardPage(){
+  await loadDashboard();
+  const s=cache.students,r=cache.records,st=cache.stats;
+  const total=Number.isFinite(+st.students)?+st.students:s.length;
+  const today=Number.isFinite(+st.today)?+st.today:r.filter(x=>String(x.date||x.record_date||'').includes(new Date().toISOString().slice(0,10))).length;
+  $('pages').innerHTML=`
+    <div class="cards">
+      <div class="metric"><small>Total Santri</small><div class="num">${total}</div></div>
+      <div class="metric"><small>Setoran</small><div class="num">${r.filter(x=>String(x.type||'').toLowerCase().includes('setor')).length}</div></div>
+      <div class="metric"><small>Murajaah</small><div class="num">${r.filter(x=>String(x.type||'').toLowerCase().includes('murajaah')).length}</div></div>
+      <div class="metric"><small>Aktivitas Hari Ini</small><div class="num">${today}</div></div>
+    </div>
+    <div class="panel"><div class="toolbar"><div><h2>Aktivitas terbaru</h2><span class="muted">Data dari server aplikasi.</span></div></div>
+    ${recentRows(r)}</div>`;
+}
+function recentRows(r){
+  if(!r.length)return '<div class="empty">Belum ada aktivitas.</div>';
+  return `<div class="tablewrap"><table class="table"><tr><th>Santri</th><th>Jenis</th><th>Surah</th><th>Ayat</th><th>Tanggal</th></tr>${r.slice().reverse().slice(0,10).map(x=>`<tr><td>${esc(x.student_name||x.student||x.name||'-')}</td><td><span class="badge">${esc(x.type||'-')}</span></td><td>${esc(x.surah||'-')}</td><td>${esc(x.ayah||x.ayat||'-')}</td><td>${esc(x.date||x.record_date||'-')}</td></tr>`).join('')}</table></div>`;
+}
+
+async function studentsPage(){
+  await loadStudents();
+  const admin=isAdmin();
+  $('pages').innerHTML=`
+    ${admin?`<div class="panel"><div class="toolbar"><div><h2>Tambah Santri</h2><p class="muted">Hanya Administrator yang dapat menambah dan mengelompokkan santri.</p></div></div>
+    <div class="formgrid">
+      <div><label>Nama santri</label><input id="newName" class="input" placeholder="Nama lengkap"></div>
+      <div><label>Kelompok / Halaqoh</label><input id="newGroup" class="input" placeholder="Contoh: Halaqoh 1"></div>
+    </div>
+    <button class="btn primary full" onclick="addStudent()">+ Tambahkan Santri</button></div>`:''}
+    <div class="panel"><div class="toolbar"><div><h2>Daftar Santri</h2><span class="muted">${cache.students.length} santri</span></div></div>
+    ${cache.students.length?`<div class="tablewrap"><table class="table"><tr><th>Nama</th><th>Kelompok</th><th>Status</th>${admin?'<th>Aksi</th>':''}</tr>${cache.students.map(s=>`<tr><td>${esc(s.name||s.nama||'-')}</td><td>${esc(s.group_name||s.halaqoh_name||s.halaqoh||s.group||'-')}</td><td><span class="badge ${s.active===0?'red':''}">${s.active===0?'Nonaktif':'Aktif'}</span></td>${admin?`<td><button class="btn danger" onclick="deleteStudent(${Number(s.id)||0},'${esc(s.name||s.nama||'santri')}')">Hapus</button></td>`:''}</tr>`).join('')}</table></div>`:'<div class="empty">Belum ada santri. Administrator dapat menambahkannya di atas.</div>'}</div>`;
+}
+
+async function recordsPage(){
+  await loadStudents();await loadRecords();
+  if(!cache.students.length){$('pages').innerHTML='<div class="panel"><div class="empty">Belum ada santri. Minta Administrator menambahkan santri terlebih dahulu.</div></div>';return}
+  $('pages').innerHTML=`
+  <div class="panel"><h2>Input Setoran / Murajaah</h2>
+    <div class="formgrid">
+      <div><label>Santri</label><select id="recStudent" class="input">${cache.students.map(s=>`<option value="${esc(s.id??s.name)}">${esc(s.name||s.nama)}</option>`).join('')}</select></div>
+      <div><label>Jenis</label><select id="recType" class="input"><option value="Setoran">Setoran</option><option value="Murajaah">Murajaah</option></select></div>
+      <div><label>Surah</label><input id="recSurah" class="input" placeholder="Contoh: Al-Baqarah"></div>
+      <div><label>Ayat</label><input id="recAyah" class="input" placeholder="Contoh: 1-5"></div>
+    </div>
+    <label>Catatan</label><input id="recNote" class="input" placeholder="Catatan tambahan">
+    <button class="btn primary full" onclick="addRecord()">Simpan Aktivitas</button>
+  </div>
+  <div class="panel"><h2>Riwayat</h2>${recentRows(cache.records)}</div>`;
+}
+
+async function recapPage(){
+  await loadDashboard();
+  const groups={};
+  cache.students.forEach(s=>{
+    const name=s.name||s.nama||'-';groups[name]={name,count:0,setoran:0,murajaah:0};
+  });
+  cache.records.forEach(r=>{
+    const n=r.student_name||r.student||r.name||'-';
+    if(!groups[n])groups[n]={name:n,count:0,setoran:0,murajaah:0};
+    groups[n].count++;
+    const t=String(r.type||'').toLowerCase();
+    if(t.includes('murajaah'))groups[n].murajaah++;else groups[n].setoran++;
+  });
+  const rows=Object.values(groups);
+  $('pages').innerHTML=`<div class="panel"><h2>Rekap Santri</h2><div class="tablewrap"><table class="table"><tr><th>Santri</th><th>Total</th><th>Setoran</th><th>Murajaah</th></tr>${rows.length?rows.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.count}</td><td>${x.setoran}</td><td>${x.murajaah}</td></tr>`).join(''):'<tr><td colspan="4">Belum ada data.</td></tr>'}</table></div></div>`;
+}
+
+async function adminPage(){
+  await loadDashboard();
+  $('pages').innerHTML=`
+    <div class="cards">
+      <div class="metric"><small>Santri</small><div class="num">${cache.students.length}</div></div>
+      <div class="metric"><small>Aktivitas</small><div class="num">${cache.records.length}</div></div>
+    </div>
+    <div class="panel"><h2>Hak Akses Administrator</h2>
+      <p class="muted">Administrator dapat menambah, mengelompokkan, dan menghapus data santri. Pengguna biasa tidak mendapatkan kontrol tersebut.</p>
+      <div class="actions"><button class="btn primary" onclick="go('students')">Kelola Santri</button><button class="btn secondary" onclick="go('dashboard')">Kembali ke Dashboard</button></div>
+    </div>`;
+}
+
+async function addStudent(){
+  if(!isAdmin())return toast('Hanya Administrator yang boleh menambah santri.');
+  const name=$('newName').value.trim(),group=$('newGroup').value.trim();
+  if(!name)return toast('Nama santri wajib diisi.');
+  try{
+    await api('/api/students',{method:'POST',body:JSON.stringify({name,group_name:group,halaqoh:group,halaqoh_name:group})});
+    toast('Santri berhasil ditambahkan.');
+    await studentsPage();
+  }catch(e){toast(e.message)}
+}
+async function deleteStudent(id,name){
+  if(!isAdmin())return toast('Hanya Administrator yang boleh menghapus santri.');
+  if(!id)return toast('ID santri tidak ditemukan.');
+  if(!confirm(`Hapus ${name}?`))return;
+  try{await api('/api/students/'+id,{method:'DELETE'});toast('Santri dihapus.');await studentsPage()}catch(e){toast(e.message)}
+}
+async function addRecord(){
+  const student=$('recStudent').value;
+  const type=$('recType').value,surah=$('recSurah').value.trim(),ayah=$('recAyah').value.trim(),note=$('recNote').value.trim();
+  if(!surah||!ayah)return toast('Surah dan ayat wajib diisi.');
+  try{
+    await api('/api/records',{method:'POST',body:JSON.stringify({studentId:isNaN(Number(student))?student:Number(student),type,date:new Date().toISOString().slice(0,10),surah,ayah,note})});
+    toast('Aktivitas berhasil disimpan.');await recordsPage();
+  }catch(e){toast(e.message)}
+}
+
+async function login(){
+  const username=$('username').value.trim(),password=$('password').value;
+  $('loginErr').textContent='';
+  if(!username||!password){$('loginErr').textContent='Username dan password wajib diisi.';return}
+  try{
+    const d=await api('/api/auth/login',{method:'POST',body:JSON.stringify({username,password})});
+    me=d?.user||d;
+    $('auth').classList.add('hidden');$('app').classList.remove('hidden');
+    $('sideName').textContent=me?.name||me?.username||'Pengguna';
+    $('sideRole').textContent=isAdmin()?'Administrator':'Ustadz';
+    $('adminNav').classList.toggle('hidden',!isAdmin());
+    page='dashboard';await render();
+  }catch(e){$('loginErr').textContent=e.message}
+}
+async function logout(){try{await api('/api/auth/logout',{method:'POST'})}catch{}logoutLocal()}
+async function checkSession(){
+  try{
+    const d=await api('/api/auth/me');
+    me=d?.user||d;
+    if(!me)return;
+    $('auth').classList.add('hidden');$('app').classList.remove('hidden');
+    $('sideName').textContent=me?.name||me?.username||'Pengguna';
+    $('sideRole').textContent=isAdmin()?'Administrator':'Ustadz';
+    $('adminNav').classList.toggle('hidden',!isAdmin());
+    await render();
+  }catch{}
+}
+
+$('loginBtn').onclick=login;
+$('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+$('logoutBtn').onclick=logout;
+$('refreshBtn').onclick=render;
+$('closeModal').onclick=()=>$('modal').classList.remove('show');
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
+checkSession();
+</script>
+</body>
+</html>
