@@ -229,6 +229,4 @@ app.get('/api/records', auth, (req, res) => {
   res.json(db.prepare(q).all(...p));
 });
 
-app.get('*', (req,res) => res.sendFile(path.join(__dirname,'public','index.html')));
-const port=process.env.PORT||3000;
-app.listen(port,()=>console.log(`Halaqoh online ready on ${port}`));
+app.get('/{*splat}',(req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
